@@ -10,18 +10,21 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_USERS")
-@Setter
+@Table(name = "TB_ADRESSES")
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-public class User implements Serializable {
+@AllArgsConstructor
+public class AdressModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public UUID id;
+    private UUID id;
 
-    @Column(unique=true, nullable=false)
-    public String name;
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @OneToOne(mappedBy = "adress")
+    private UserModel user;
 }

@@ -5,28 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-@Entity()
-@Table(name = "TB_PRODUCTS")
+@Entity
+@Table(name = "TB_PROJECTS")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductModel extends RepresentationModel<ProductModel> implements Serializable {
+public class ProjectModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID productId;
+    private UUID id;
 
-    @Column(nullable = false, columnDefinition = "text")
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column
-    private BigDecimal value;
+    @ManyToMany(mappedBy = "projects")
+    private Set<UserModel> users = new HashSet<>();
 }
